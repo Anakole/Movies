@@ -1,8 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCast } from 'services/Api';
+import {
+  Paragraph,
+  CastImg,
+  CastItem,
+  CastList,
+  TitleName,
+} from './Cast.styled';
 
-export const Cast = () => {
+const Cast = () => {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
 
@@ -19,20 +26,20 @@ export const Cast = () => {
     addMovieCast();
   }, [movieId]);
 
-  console.log(cast);
-
   return (
-    <ul>
+    <CastList>
       {cast.map(({ cast_id, name, character, profile_path }) => (
-        <li key={cast_id}>
-          <img
+        <CastItem key={cast_id}>
+          <CastImg
             src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
             alt={name}
           />
-          <h2>{name}</h2>
-          <p>{character}</p>
-        </li>
+          <TitleName>{name}</TitleName>
+          <Paragraph>{character}</Paragraph>
+        </CastItem>
       ))}
-    </ul>
+    </CastList>
   );
 };
+
+export default Cast;

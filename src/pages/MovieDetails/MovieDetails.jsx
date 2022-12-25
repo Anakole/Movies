@@ -1,8 +1,22 @@
-import { useState, useEffect } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { useState, useEffect, Suspense } from 'react';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { BsArrowLeftShort } from 'react-icons/bs';
 import { getMovieById } from 'services/Api';
+import {
+  BackLink,
+  Details,
+  DetailsContainer,
+  DetailsImg,
+  DetailsLink,
+  DetailsNav,
+  DetailsOptions,
+  DetailsTable,
+  DetailsText,
+  DetailsTitle,
+  DetailsTr,
+} from './MovieDetails.styled';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
   const [genres, setGenres] = useState([]);
   const { movieId } = useParams();
@@ -28,23 +42,44 @@ export const MovieDetails = () => {
   const posterLink = `https://image.tmdb.org/t/p/w500${poster_path}`;
 
   return (
-    <main>
-      <div>
-        <Link to={backLink}>Back</Link>
-        <img src={posterLink} alt={original_title} />
+    <DetailsContainer>
+      <BackLink to={backLink}>
+        <BsArrowLeftShort />
+        Back
+      </BackLink>
+      <Details>
+        <DetailsImg src={posterLink} alt={original_title} />
         <div>
-          <h1>
+          <DetailsTitle>
             {original_title} ({new Date(release_date).getFullYear()})
-          </h1>
-          <p>User score: {Math.round(vote_average * 10)}%</p>
-          <p>Overview: {overview}</p>
-          <p>Genres:</p>
-          {genres.map(({ name }) => name).join(', ')}
+          </DetailsTitle>
+          <DetailsTable>
+            <DetailsTr>
+              <DetailsOptions>User score:</DetailsOptions>
+              <DetailsText>{Math.round(vote_average * 10)}%</DetailsText>
+            </DetailsTr>
+            <DetailsTr>
+              <DetailsOptions>Genres:</DetailsOptions>
+              <DetailsText>
+                {genres.map(({ name }) => name).join(', ')}
+              </DetailsText>
+            </DetailsTr>
+            <DetailsTr>
+              <DetailsOptions>Overview:</DetailsOptions>
+              <DetailsText>{overview}</DetailsText>
+            </DetailsTr>
+          </DetailsTable>
+          <DetailsNav>
+            <DetailsLink to="cast">Cast</DetailsLink>
+            <DetailsLink to="reviews">Reviews</DetailsLink>
+          </DetailsNav>
+          <Suspense fallback={<div>Load more...</div>}>
+            <Outlet />
+          </Suspense>
         </div>
-      </div>
-      <Link to="cast">Cast</Link>
-      <Link to="reviews">Reviews</Link>
-      <Outlet />
-    </main>
+      </Details>
+    </DetailsContainer>
   );
 };
+
+export default MovieDetails;

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getMoviesTrends } from 'services/Api';
 import { TrendsList } from 'components/TrendsList/TrendsList';
 
-export const Home = () => {
+const Home = () => {
   const [trends, setTrends] = useState([]);
 
   useEffect(() => {
@@ -20,3 +20,5 @@ export const Home = () => {
 
   return <TrendsList trends={trends} />;
 };
+
+export default Home;

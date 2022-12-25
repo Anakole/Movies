@@ -1,9 +1,11 @@
+import { MoviesList } from 'components/MoviesList/MoviesList';
 import { SearchForm } from 'components/SearchForm/SearchForm';
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { getSearchMovies } from 'services/Api';
+import { StartSearch } from './Movies.styled';
 
-export const Movies = () => {
+const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearcnParams] = useSearchParams();
   const movieName = searchParams.get('query') ?? '';
@@ -32,24 +34,15 @@ export const Movies = () => {
   };
 
   return (
-    <div>
+    <>
       <SearchForm value={movieName} onSubmit={handleFormSubmit} />
-      <ul>
-        {movies.map(({ poster_path, id, original_title }) => (
-          <li key={id}>
-            <Link
-              to={`/movies/${id}`}
-              state={{ from: `/movies?query=${movieName}` }}
-            >
-              <img
-                src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-                alt={original_title}
-              />
-              <h2>{original_title}</h2>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+      {movies.length !== 0 ? (
+        <MoviesList movies={movies} movieName={movieName} />
+      ) : (
+        <StartSearch>Start searching for a movie</StartSearch>
+      )}
+    </>
   );
 };
+
+export default Movies;
