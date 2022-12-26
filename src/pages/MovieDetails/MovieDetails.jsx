@@ -13,15 +13,17 @@ import {
   DetailsTable,
   DetailsText,
   DetailsTitle,
-  DetailsTr,
+  DetailsLine,
 } from './MovieDetails.styled';
+
+import moviePoster from 'components/img/movie-poster.jpg';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
   const [genres, setGenres] = useState([]);
   const { movieId } = useParams();
   const location = useLocation();
-  const backLink = location.state?.from ?? '/movies';
+  const backLink = location.state?.from ?? '/';
 
   useEffect(() => {
     async function addMovieById() {
@@ -48,30 +50,37 @@ const MovieDetails = () => {
         Back
       </BackLink>
       <Details>
-        <DetailsImg src={posterLink} alt={original_title} />
+        <DetailsImg
+          src={poster_path !== null ? posterLink : moviePoster}
+          alt={original_title}
+        />
         <div>
           <DetailsTitle>
             {original_title} ({new Date(release_date).getFullYear()})
           </DetailsTitle>
           <DetailsTable>
-            <DetailsTr>
+            <DetailsLine>
               <DetailsOptions>User score:</DetailsOptions>
               <DetailsText>{Math.round(vote_average * 10)}%</DetailsText>
-            </DetailsTr>
-            <DetailsTr>
+            </DetailsLine>
+            <DetailsLine>
               <DetailsOptions>Genres:</DetailsOptions>
               <DetailsText>
                 {genres.map(({ name }) => name).join(', ')}
               </DetailsText>
-            </DetailsTr>
-            <DetailsTr>
+            </DetailsLine>
+            <DetailsLine>
               <DetailsOptions>Overview:</DetailsOptions>
               <DetailsText>{overview}</DetailsText>
-            </DetailsTr>
+            </DetailsLine>
           </DetailsTable>
           <DetailsNav>
-            <DetailsLink to="cast">Cast</DetailsLink>
-            <DetailsLink to="reviews">Reviews</DetailsLink>
+            <DetailsLink to="cast" state={{ from: backLink }}>
+              Cast
+            </DetailsLink>
+            <DetailsLink to="reviews" state={{ from: backLink }}>
+              Reviews
+            </DetailsLink>
           </DetailsNav>
           <Suspense fallback={<div>Load more...</div>}>
             <Outlet />

@@ -8,6 +8,7 @@ import {
   CastList,
   TitleName,
 } from './Cast.styled';
+import castImg from '../img/cast-img.jpg';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
@@ -31,7 +32,11 @@ const Cast = () => {
       {cast.map(({ cast_id, name, character, profile_path }) => (
         <CastItem key={cast_id}>
           <CastImg
-            src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
+            src={
+              profile_path !== null
+                ? `https://image.tmdb.org/t/p/w500/${profile_path}`
+                : castImg
+            }
             alt={name}
           />
           <TitleName>{name}</TitleName>

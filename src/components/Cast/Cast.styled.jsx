@@ -17,7 +17,7 @@ export const CastItem = styled.li`
   }
 `;
 export const CastImg = styled.img`
-  width: 170px;
+  width: 179px;
 `;
 export const TitleName = styled.h2`
   font-size: 20px;

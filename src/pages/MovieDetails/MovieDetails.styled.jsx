@@ -31,16 +31,16 @@ export const DetailsImg = styled.img`
 
 export const Details = styled.div`
   display: flex;
-  justify-content: center;
   align-items: start;
 `;
 
-export const DetailsTable = styled.table`
+export const DetailsTable = styled.div`
   border-collapse: collapse;
   width: 100%;
 `;
 
-export const DetailsTr = styled.tr`
+export const DetailsLine = styled.div`
+  display: flex;
   font-size: 20px;
 `;
 
@@ -52,17 +52,14 @@ export const DetailsTitle = styled.h1`
   text-align: left;
 `;
 
-export const DetailsOptions = styled.td`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 100px;
+export const DetailsOptions = styled.p`
+  width: 90px;
   color: #75b8bf94;
   font-weight: 500;
   padding: 20px;
 `;
 
-export const DetailsText = styled.td`
+export const DetailsText = styled.p`
   color: #75b8bf;
   font-weight: 400;
   padding: 20px;
