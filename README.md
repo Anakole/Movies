@@ -2,7 +2,7 @@
 
 ![Movies](/movies.jpg)
 
-### _Hello! This is my movie search project on React. Here I used API service for data request and routers._
+### Hello! This is my movie search project on React. Here I used API service for data request and routers
 
 ![MoviesGif](/movies.gif)
 
