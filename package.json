@@ -1,7 +1,7 @@
 {
   "name": "react-homework-template",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://Anakole.github.io/Movies/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
